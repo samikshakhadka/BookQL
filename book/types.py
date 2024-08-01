@@ -1,11 +1,12 @@
 import strawberry_django
 from strawberry import auto
-from .models import Book, Favorite
+
 from user.types import UserType
 from typing import Optional
+from . import models
 
-@strawberry_django.type(Book)
-class BookType:
+@strawberry_django.type(models.Book)
+class Book:
     id: auto
     title: auto
     author: auto
@@ -15,13 +16,13 @@ class BookType:
     updated_at: auto
     is_deleted: auto
 
-@strawberry_django.type(Favorite)
+@strawberry_django.type(models.Favorite)
 class FavoriteType:
     id: auto
     user: UserType
-    book: BookType
+    book: Book
 
-@strawberry_django.input(Book)
+@strawberry_django.input(models.Book)
 class BookInput:
     
     title: auto
@@ -32,21 +33,21 @@ class BookInput:
     updated_at: auto
     is_deleted: auto
 
-@strawberry_django.input(Book)
+@strawberry_django.input(models.Book)
 class BookUpdateInput:
     title: Optional[str] = None
     author: Optional[str] = None
     description: Optional[str] = None
 
-@strawberry_django.input(Favorite)
+@strawberry_django.input(models.Favorite)
 class FavoriteInput:
     user: UserType
-    book: BookType
+    book: Book
 
-@strawberry_django.input(Favorite)
+@strawberry_django.input(models.Favorite)
 class FavoriteUPdateInput:
     user: UserType | None = None
-    book: BookType | None = None
+    book: Book| None = None
 
 
 

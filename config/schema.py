@@ -24,4 +24,5 @@ class Query(BookQuery, UserQuery):
 class Mutation(BookMutation, UserMutation):
     pass
 
-schema = strawberry.Schema(query=Query, mutation=Mutation)
+schema = strawberry.Schema(query=Query, mutation=Mutation
+)

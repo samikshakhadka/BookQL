@@ -5,6 +5,7 @@ from django.urls import path, include
 from config.schema import schema
 
 
+
 from strawberry.django.views import AsyncGraphQLView
 
 urlpatterns = [
