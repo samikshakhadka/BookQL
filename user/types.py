@@ -4,9 +4,29 @@ import strawberry_django
 from strawberry import auto
 from . import models
 from typing import Optional
+from django.db.models import Q
 
+#filter
 
-@strawberry_django.type(models.CustomUser)
+@strawberry_django.filters.filter(models.CustomUser, lookups=True)
+class UserFilter:
+    id: auto
+    email: auto
+    first_name: auto
+
+    @strawberry_django.filter_field
+    def special_filter(self, prefix: str, value: str):
+        return Q(**{f"{prefix}name": value})
+
+@strawberry_django.ordering.order(models.CustomUser)
+class UserOrder:
+    name: auto
+    
+
+@strawberry_django.type(models.CustomUser,
+                        filters=UserFilter,
+                        order=UserOrder,
+                        pagination=True,)
 class UserType:
     id: auto
     email: auto

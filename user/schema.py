@@ -57,7 +57,7 @@ class UserMutation:
 
         user = await sync_to_async(authenticate)(request, email=input.email, password=input.password)
         print('000000000000', user)
-        if not user:
+        if not user:                                                                                                                                                                                                                                                                        
             raise ValidationError("Invalid email or password")
 
         if not user.verification_token:
@@ -114,7 +114,9 @@ class UserMutation:
 @strawberry.type
 class UserQuery:
     me: UserType = strawberry_django.auth.current_user()
-    
+
+    user: UserType = strawberry_django.field()
+
     user: List[UserType] = strawberry_django.field()
 
 
