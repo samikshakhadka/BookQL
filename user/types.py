@@ -1,5 +1,5 @@
 # user/types.py
-
+import strawberry
 import strawberry_django
 from strawberry import auto
 from . import models
@@ -28,8 +28,8 @@ class UserOrder:
                         order=UserOrder,
                         pagination=True,)
 class UserType:
-    id: auto
-    email: auto
+    id: strawberry.ID
+    email: auto 
     first_name: auto
     last_name: auto
     password: auto
@@ -39,6 +39,11 @@ class UserType:
     verification_token: auto
     is_superuser: auto
 
+
+@strawberry_django.type(models.CustomUser)
+class meType:
+    id: strawberry.ID
+    
 @strawberry_django.input(models.CustomUser)
 class RegisterInput:
     
