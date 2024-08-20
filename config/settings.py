@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'book',
     'user',
     'strawberry_django',
+    #'strawberry_django_jwt.refresh_token',
 ]
 
 # LOCAL_APPS = [
@@ -69,9 +70,27 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+      
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_HTTPONLY = True
+# settings.py
+
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_SAMESITE = 'Lax'
+
 ROOT_URLCONF = 'config.urls'
+
+AUTH_USER_MODEL = 'user.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'config.authentication.EmailBackend',  # Custom backend
+    'django.contrib.auth.backends.ModelBackend',  
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATES = [
     {
